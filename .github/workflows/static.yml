@@ -1,0 +1,61 @@
+# Workflow para deploy de um projeto Vite/React no GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Roda a cada push na branch principal (master)
+  push:
+    branches: ["master"]
+
+  # Permite que você rode essa action manualmente caso queira
+  workflow_dispatch:
+
+# Configura as permissões do token para publicar no Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permite apenas um deploy concorrente por vez
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 1. Configura a versão do Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 2. Instala as dependências usando o package-lock.json
+      - name: Install dependencies
+        run: npm ci
+
+      # 3. Faz o build do projeto (que criará a pasta dist)
+      - name: Build project
+        run: npm run build
+
+      # 4. Configura as Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 5. Dá o upload APENAS na pasta dist gerada pelo build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      # 6. Faz o deploy em si
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
