@@ -25,13 +25,7 @@ const EXCHANGE_RATES: Record<string, number> = {
   'GBP': 0.79
 };
 
-const CURRENCY_SYMBOLS: Record<string, string> = {
-  'USD': '$',
-  'EUR': '€',
-  'CAD': 'C$',
-  'BRL': 'R$',
-  'GBP': '£'
-};
+
 
 export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
