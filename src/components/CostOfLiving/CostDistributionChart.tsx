@@ -69,7 +69,7 @@ export const CostDistributionChart: React.FC<CostDistributionChartProps> = ({ to
 
   return (
     <div className="w-full h-[320px] flex flex-col justify-center items-center relative z-10 transition-all duration-300">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%" minWidth={0}>
         <PieChart>
           <Pie
             {...({ activeIndex, activeShape: renderActiveShape } as any)}

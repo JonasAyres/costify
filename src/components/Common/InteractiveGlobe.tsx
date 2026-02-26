@@ -38,7 +38,7 @@ const InteractiveGlobe: React.FC = () => {
       <div 
         className="absolute inset-0 bg-no-repeat bg-center opacity-20 dark:opacity-20"
         style={{
-          backgroundImage: "url('/world-map.svg')",
+          backgroundImage: `url('${import.meta.env.BASE_URL}world-map.svg')`,
           backgroundSize: 'cover',
           filter: mapColor,
         }}
@@ -51,7 +51,7 @@ const InteractiveGlobe: React.FC = () => {
       <div 
         className={`absolute inset-0 bg-no-repeat bg-center pointer-events-none transition-opacity duration-300 ${isDark ? 'mix-blend-screen opacity-100' : 'mix-blend-plus-lighter opacity-100'}`}
         style={{
-          backgroundImage: "url('/world-map.svg')",
+          backgroundImage: `url('${import.meta.env.BASE_URL}world-map.svg')`,
           backgroundSize: 'cover',
           filter: isDark 
             ? 'invert(75%) sepia(50%) saturate(400%) hue-rotate(130deg) brightness(160%)' 
